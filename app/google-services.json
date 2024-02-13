@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "47886036234",
+    "project_id": "spelltester-9ba15",
+    "storage_bucket": "spelltester-9ba15.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:47886036234:android:f75ab67801b1588c13def3",
+        "android_client_info": {
+          "package_name": "com.example.spelltester"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB1PP7_A3Xoe53Hzfbsq7vTl5rhNplcuJ8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

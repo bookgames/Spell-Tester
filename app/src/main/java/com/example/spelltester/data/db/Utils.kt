@@ -4,6 +4,7 @@ import com.example.spelltester.data.db.attempt.*
 import com.example.spelltester.data.db.quiz.*
 import com.example.spelltester.data.db.word.*
 import com.example.spelltester.data.repositories.*
+import java.util.*
 import java.util.concurrent.*
 
 private const val TAG = "Utils"
@@ -55,4 +56,8 @@ fun minDistance(word1: String, word2: String): Int {
     }
     val value = dp[word1.length][word2.length]
     return word1.length - value + word2.length - value
+}
+
+fun formatWord(word: String): String {
+    return word.trim().lowercase(Locale.ROOT).replace(" ", "")
 }

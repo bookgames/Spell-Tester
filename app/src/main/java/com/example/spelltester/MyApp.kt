@@ -12,14 +12,13 @@ class MyApp:Application() {
     }
 
     private fun createNotificationChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(ReminderNotification.id,
-                ReminderNotification.name,
-                ReminderNotification.importance).apply {
-                description = ReminderNotification.description
-            }
-            val notificationManager: NotificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.createNotificationChannel(channel)
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) return
+        val channel = NotificationChannel(ReminderNotification.id,
+            ReminderNotification.name,
+            ReminderNotification.importance).apply {
+            description = ReminderNotification.description
         }
+        val notificationManager: NotificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.createNotificationChannel(channel)
     }
 }

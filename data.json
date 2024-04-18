@@ -1,0 +1,187 @@
+{
+  "version": 1,
+  "words": [
+    {
+      "id": 1,
+      "english": "spy",
+      "arabic": "جاسوس"
+    },
+    {
+      "id": 2,
+      "english": "revenge",
+      "arabic": "ينتقم"
+    },
+    {
+      "id": 3,
+      "english": "traitor",
+      "arabic": "خائن"
+    },
+    {
+      "id": 4,
+      "english": "carriage",
+      "arabic": "عربة تجرها الخيول"
+    },
+    {
+      "id": 5,
+      "english": "madness",
+      "arabic": "جنون"
+    },
+    {
+      "id": 6,
+      "english": "deceive",
+      "arabic": "يخدع"
+    },
+    {
+      "id": 7,
+      "english": "interrupt",
+      "arabic": "يقاطع"
+    },
+    {
+      "id": 8,
+      "english": "betray",
+      "arabic": "يخون"
+    },
+    {
+      "id": 9,
+      "english": "prove",
+      "arabic": "يثبت-يبرهن"
+    },
+    {
+      "id": 10,
+      "english": "cure",
+      "arabic": "يعالج"
+    },
+    {
+      "id": 11,
+      "english": "kneel",
+      "arabic": "يركع"
+    },
+    {
+      "id": 12,
+      "english": "enemy",
+      "arabic": "عدو"
+    },
+    {
+      "id": 13,
+      "english": "stand for",
+      "arabic": "يؤيد-يرمز ل"
+    },
+    {
+      "id": 14,
+      "english": "ruin",
+      "arabic": "يدمر-حطام"
+    },
+    {
+      "id": 15,
+      "english": "claim",
+      "arabic": "زعم"
+    },
+    {
+      "id": 16,
+      "english": "broadsheet",
+      "arabic": "صفحة رسمية"
+    },
+    {
+      "id": 17,
+      "english": "announce",
+      "arabic": "يُعلِن"
+    },
+    {
+      "id": 18,
+      "english": "casualty",
+      "arabic": "خسارة-فقد-حالة وفاة"
+    },
+    {
+      "id": 19,
+      "english": "cheat",
+      "arabic": "غشاش"
+    },
+    {
+      "id": 20,
+      "english": "compensate",
+      "arabic": "يعوض"
+    },
+    {
+      "id": 21,
+      "english": "convict",
+      "arabic": "مذنب-يُدين"
+    },
+    {
+      "id": 22,
+      "english": "demand",
+      "arabic": "يطالب"
+    },
+    {
+      "id": 23,
+      "english": "incident",
+      "arabic": "واقعة-موقف معارض"
+    },
+    {
+      "id": 24,
+      "english": "investigate",
+      "arabic": "يحقق في"
+    },
+    {
+      "id": 25,
+      "english": "investigator",
+      "arabic": "محقق"
+    },
+    {
+      "id": 26,
+      "english": "long-awaited",
+      "arabic": "طال انتظاره"
+    },
+    {
+      "id": 27,
+      "english": "nosy",
+      "arabic": "متطفل"
+    },
+    {
+      "id": 28,
+      "english": "occur",
+      "arabic": "يحدث"
+    },
+    {
+      "id": 29,
+      "english": "piracy",
+      "arabic": "القرصنة"
+    },
+    {
+      "id": 30,
+      "english": "pirated",
+      "arabic": "مقرصن"
+    },
+    {
+      "id": 31,
+      "english": "punish",
+      "arabic": "يعاقب"
+    },
+    {
+      "id": 32,
+      "english": "punishment",
+      "arabic": "عقوبة"
+    },
+    {
+      "id": 33,
+      "english": "shocked",
+      "arabic": "مصدوم"
+    },
+    {
+      "id": 34,
+      "english": "spin",
+      "arabic": "يلف-يدير"
+    }
+  ],
+  "quizzes": [
+    {
+      "name": "Unit one part 1",
+      "words": "1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34",
+      "id": 1
+    },
+    {
+      "name": "mini test",
+      "words": "9,10,11,12,13",
+      "id": 2
+    }
+  ]
+}

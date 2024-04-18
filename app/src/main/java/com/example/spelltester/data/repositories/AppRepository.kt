@@ -3,7 +3,6 @@ package com.example.spelltester.data.repositories
 import com.example.spelltester.data.db.*
 import com.example.spelltester.data.db.attempt.*
 import com.example.spelltester.data.db.quiz.*
-import com.example.spelltester.data.db.user.*
 import com.example.spelltester.data.db.word.*
 
 class AppRepository(
@@ -21,14 +20,7 @@ class AppRepository(
         return words
     }
 
-    //users
-    override fun upsert(user: User) = db.userDao().upsert(user)
-    override fun getAllUsers() = db.userDao().getAllUsers()
-    override fun getUserByUsername(username: String): User? =
-        db.userDao().getUserByUsername(username)
-
     //attempts
-    override fun getAttemptsByUserId(userId: Int) = db.userDao().getAttemptsByUserId(userId)
     override fun getAttemptsByQuizId(quizId: Int) = db.quizDao().getAttemptsByQuizId(quizId)
     override fun getAllAttempt() = db.attemptDao().getAttempt()
     override fun upsert(attempt: Attempt) = db.attemptDao().upsert(attempt)

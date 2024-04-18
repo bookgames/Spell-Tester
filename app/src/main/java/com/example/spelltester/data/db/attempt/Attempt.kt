@@ -6,7 +6,6 @@ import com.example.spelltester.data.repositories.*
 
 @Entity(tableName = "attempts", )
 data class Attempt(
-    val userId: Int,
     var quizId: Int,
     var wordId: Int,
     var points: Float,

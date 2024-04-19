@@ -1,9 +1,12 @@
 package com.example.spelltester
 
+import android.content.*
 import android.os.*
 import android.util.*
 import androidx.appcompat.app.*
 import androidx.recyclerview.widget.*
+import androidx.work.*
+import com.example.spelltester.data.*
 import com.example.spelltester.data.db.*
 import com.example.spelltester.data.remote.*
 import com.example.spelltester.data.repositories.*
@@ -48,6 +51,9 @@ class MainActivity : AppCompatActivity() {
             }else{
                 Log.d(TAG, "version is up to date")
             }
+        }
+        binding.settingBtn.setOnClickListener {
+            startActivity(Intent(this, SettingActivity::class.java))
         }
     }
 

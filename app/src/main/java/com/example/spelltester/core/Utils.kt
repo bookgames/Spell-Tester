@@ -1,4 +1,4 @@
-package com.example.spelltester.data.db
+package com.example.spelltester.core
 
 import com.example.spelltester.data.db.attempt.*
 import com.example.spelltester.data.db.quiz.*

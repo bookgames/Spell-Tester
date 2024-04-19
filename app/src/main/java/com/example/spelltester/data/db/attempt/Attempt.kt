@@ -14,7 +14,7 @@ data class Attempt(
     var attemptId: Int = 0,
 ) {
     @delegate:Transient
-    val word: Word? by lazy { AppRepository.getInstance().getWordByWordId(wordId) }
+    val word: Word? by lazy { AppRepository.getInstance().getWordByWordId(wordId)!! }
     companion object {
         const val MAX_POINT = 4.0f
         const val MIN_POINT = -4.0f
@@ -24,15 +24,14 @@ data class Attempt(
             repository: Repository = AppRepository.getInstance()
         ) {
             if (repository.getAttemptByWordId(wordId) == null) {
-                repository.upsert(Attempt(0, quizId, wordId, 0f, 0L))
+                repository.upsert(Attempt(quizId, wordId, 0f, 0L))
             }
         }
 
     }
 
-    fun isAnswered(): Boolean {
-        return lastAttempt != 0L
-    }
+    fun isAnswered(): Boolean =lastAttempt != 0L
+
 
 
 }

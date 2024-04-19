@@ -3,7 +3,7 @@ package com.example.spelltester.ui
 import android.content.*
 import android.view.*
 import androidx.recyclerview.widget.*
-import com.example.spelltester.data.db.*
+import com.example.spelltester.core.*
 import com.example.spelltester.data.db.quiz.*
 import com.example.spelltester.databinding.*
 

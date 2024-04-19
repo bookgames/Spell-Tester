@@ -24,9 +24,7 @@ data class Quiz(
 
         if (name != other.name) return false
         if (!wordsId.contentEquals(other.wordsId)) return false
-        if (quizId != other.quizId) return false
-
-        return true
+        return quizId == other.quizId
     }
 
     override fun hashCode(): Int {

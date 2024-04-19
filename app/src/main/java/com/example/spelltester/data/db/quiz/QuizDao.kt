@@ -8,6 +8,8 @@ import com.example.spelltester.data.db.attempt.*
 interface QuizDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun upsert(quiz: Quiz)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun upsert(quizzes: List<Quiz>)
 
     @Query("SELECT * FROM quiz")
     fun getAllQuiz(): LiveData<List<Quiz>>

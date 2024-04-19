@@ -2,6 +2,7 @@ package com.example.spelltester.ui
 
 import android.os.*
 import androidx.appcompat.app.*
+import androidx.lifecycle.*
 import com.example.spelltester.*
 import com.example.spelltester.data.db.attempt.*
 import com.example.spelltester.data.repositories.*
@@ -19,10 +20,10 @@ class SpellTestingActivity : AppCompatActivity() {
         binding = ActivitySpellTestingBinding.inflate(layoutInflater)
         setContentView(binding.root)
         quizId = intent.getIntExtra(QUIZ_ID_KEY, -1)
-        viewModel = SpellTestingViewModel(repository, quizId ?: -1)
+        viewModel = ViewModelProvider(this)[SpellTestingViewModel::class.java]
+        viewModel.init(quizId!!)
         binding.btnNext.setOnClickListener {
-         val message=   viewModel.processClicking(binding.txtSpell.text.toString()!!)
-            when (message) {
+         when (viewModel.processClicking(binding.txtSpell.text.toString())) {
                 SpellTestingViewModel.Message.FINISH -> {
                     finish()
                 }
@@ -70,9 +71,6 @@ class SpellTestingActivity : AppCompatActivity() {
                 binding.btnNext.setText(R.string.done)
             }
         }
-
-
     }
-
 
 }

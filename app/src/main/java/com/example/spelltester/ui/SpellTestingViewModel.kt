@@ -2,7 +2,7 @@ package com.example.spelltester.ui
 
 import androidx.lifecycle.*
 import com.example.spelltester.*
-import com.example.spelltester.data.db.*
+import com.example.spelltester.core.*
 import com.example.spelltester.data.db.attempt.*
 import com.example.spelltester.data.db.word.*
 import com.example.spelltester.data.repositories.*
@@ -11,7 +11,7 @@ import kotlin.random.*
 
 const val TAG_S_T_V_M = "SpellTestingViewModel"
 
-class SpellTestingViewModel(private val repository: Repository, quizId: Int) : ViewModel() {
+class SpellTestingViewModel() : ViewModel() {
     enum class Status {
         ANSWERING, SHOWING, DONE, ERROR
     }
@@ -25,13 +25,15 @@ class SpellTestingViewModel(private val repository: Repository, quizId: Int) : V
     var gainedPoints = 0f
     var status: Status = Status.ANSWERING
     var errorMessage: Int = 0
+    var quizId: Int = -2
 
-    init {
+    private val repository=AppRepository.getInstance()
+    fun init( quizId: Int) {
+        if (quizId == this.quizId) return
         if (quizId == -1) {
             status = Status.ERROR
             errorMessage = R.string.error_finding_quiz
         } else {
-
             val words = repository.getWordsByWordsId(
                 repository.getQuizByQuizId(quizId)?.wordsId ?: IntArray(0)
             )
@@ -39,8 +41,6 @@ class SpellTestingViewModel(private val repository: Repository, quizId: Int) : V
                 Attempt.addIfNotExist(word.wordId, quizId)
             }
             attempts = repository.getAttemptsByQuizId(quizId)
-
-
             attempt = getNextAttempt()
             if (attempt == null) {
                 status = Status.ERROR
@@ -53,7 +53,7 @@ class SpellTestingViewModel(private val repository: Repository, quizId: Int) : V
         // choose word in words with ratio
         var filteredAttempts = attempts.filter { it.points != Attempt.MAX_POINT }
         if (filteredAttempts.isEmpty()) return null
-        val weights = filteredAttempts.map { (it.points * .5 + 4) }
+        val weights = filteredAttempts.map { (it.calculateRate(it.word!!) * .5 + 4) }
         val totalWeight = weights.sum()
         val random = Random.nextFloat() * totalWeight
         var i = 0
@@ -122,5 +122,6 @@ class SpellTestingViewModel(private val repository: Repository, quizId: Int) : V
 
         }
     }
+
 
 }

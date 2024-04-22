@@ -6,14 +6,17 @@ import kotlinx.coroutines.flow.*
 @Dao
 interface AttemptDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-     fun upsert(wordShells: Attempt)
+    fun upsert(wordShells: Attempt)
 
     @Query("SELECT * FROM attempts WHERE wordId = :wordId")
     fun getAttemptByWordId(wordId: Int): Attempt?
 
     @Query("SELECT * FROM attempts")
-     fun getAttempt(): Flow<List<Attempt>>
+    fun getAttempt(): List<Attempt>
 
     @Delete
-     fun deleteAttempt(wordShells: Attempt)
+    fun deleteAttempt(wordShells: Attempt)
+
+    @Query("DELETE FROM attempts")
+    fun deleteAllAttempts()
 }

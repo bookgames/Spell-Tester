@@ -12,9 +12,6 @@ data class Quiz(
     @PrimaryKey(autoGenerate = true)
     var quizId: Int = 1,
 ) {
-    fun fetchWords(repository: Repository = AppRepository.getInstance()): List<Word> {
-        return repository.getWordsByWordsId(wordsId)
-    }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

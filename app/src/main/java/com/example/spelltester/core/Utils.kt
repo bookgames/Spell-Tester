@@ -7,7 +7,7 @@ import com.example.spelltester.data.repositories.*
 import java.util.*
 import java.util.concurrent.*
 
-private const val TAG = "Utils"
+private const val TAG = "KH_UTILS"
 fun Attempt.calculateRate( word: Word): Float {
     //  = AppRepository.getInstance().getWordByWordId(wordId)///TODO
     var timePoints: Int //TODO

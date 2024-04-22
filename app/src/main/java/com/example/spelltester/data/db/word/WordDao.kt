@@ -5,9 +5,10 @@ import androidx.room.*
 @Dao
 interface WordDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-     fun upsertAll(word: Word)
-     @Insert(onConflict = OnConflictStrategy.REPLACE)
-     fun upsertAll(words: List<Word>)
+    fun upsertAll(word: Word)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun upsertAll(words: List<Word>)
 
     @Query("SELECT * FROM words")
     fun getAllWords(): List<Word>
@@ -17,6 +18,5 @@ interface WordDao {
 
     @Query("SELECT * FROM words WHERE wordId = :wordId")
     fun getWordByWordId(wordId: Int): Word?
-
 
 }

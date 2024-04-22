@@ -4,17 +4,19 @@ import android.content.*
 
 class StorageManager(var context: Context) {
     fun saveVersion(version: Int ){
-        val sharedPref = context.getSharedPreferences("version", Context.MODE_PRIVATE) ?: return
+        val sharedPref = context.getSharedPreferences(KEY_VERSION, Context.MODE_PRIVATE) ?: return
         with (sharedPref.edit()) {
-            putInt("version", version)
+            putInt(KEY_VERSION, version)
             apply()
         }
     }
     fun getVersion(): Int {
-        val sharedPref = context.getSharedPreferences("version", Context.MODE_PRIVATE)
-        return sharedPref.getInt("version", 0)
+        val sharedPref = context.getSharedPreferences(KEY_VERSION, Context.MODE_PRIVATE)
+        return sharedPref.getInt(KEY_VERSION, 0)
     }
-    companion object{
+
+    companion object {
+        const val KEY_VERSION = "version"
         private var instance: StorageManager? = null
         private val LOCK = Any()
 
@@ -23,5 +25,9 @@ class StorageManager(var context: Context) {
                 instance
                     ?: StorageManager(context).also { instance = it }
             }
+
+        fun getInstance(): StorageManager {
+            return instance!!
+        }
     }
 }

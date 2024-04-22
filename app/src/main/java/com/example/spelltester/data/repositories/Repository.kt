@@ -7,7 +7,7 @@ import com.example.spelltester.data.db.word.*
 import kotlinx.coroutines.flow.*
 
 interface Repository {
-    fun fetchRemoteData()
+    fun fetchRemoteData(success: (String) -> Unit)
     //words
     fun getWordByWordId(wordId: Int): Word?
     fun deleteWord(word: Word)
@@ -18,7 +18,7 @@ interface Repository {
 
     //attempts
     fun getAttemptsByQuizId(quizId: Int): List<Attempt>
-    fun getAllAttempt(): Flow<List<Attempt>>
+    fun getAllAttempt(): List<Attempt>
     fun upsert(attempt: Attempt)
     fun deleteAttempt(attempt: Attempt)
     fun getAttemptByWordId(wordId: Int): Attempt?
@@ -29,5 +29,7 @@ interface Repository {
     fun delete(quiz: Quiz)
     fun getAllQuiz(): LiveData<List<Quiz>>
     fun getQuizByQuizId(quizId: Int): Quiz?
+    fun deleteAttempts()
+
 
 }

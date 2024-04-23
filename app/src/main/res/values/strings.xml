@@ -34,5 +34,11 @@
     <string name="delete_all">Delete All</string>
     <string name="are_you_sure_you_want_to_delete_your_progress">are you sure you want to delete your progress</string>
     <string name="no">no</string>
-
+    <string name="version">Version: %1$x</string>
+    <string name="answers">answers: %1$x</string>
+    <string name="fetch_data">fetch data</string>
+    <string name="reminder">Reminder</string>
+    <string name="it_is_studying_time">it\'s studying time</string>
+    <string name="notification_permission_needed">Notification Permission Needed</string>
+    <string name="we_need_notification_permission_to_schedule_reminders">We need notification permission to schedule reminders.</string>
 </resources>

@@ -5,25 +5,29 @@ import android.content.*
 import android.os.*
 import com.example.spelltester.*
 
-class ReminderNotification(private val context: Context) {
+class ReminderNotification(context: Context) {
+    private val notification: Notification
     private val notificationManager: NotificationManager =
         context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-    fun showNotification() {
+
+    init {
         val activityPendingIntent = PendingIntent.getActivity(
             context,
             0,
             Intent(context, MainActivity::class.java),
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) PendingIntent.FLAG_IMMUTABLE else 0
+            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
         )
-        val notification = Notification.Builder(context, id)
-            .setContentTitle("Reminder")
-            .setContentText("Don't forget to practice spelling")
-            .setSmallIcon(android.R.drawable.ic_dialog_info)
+         notification = Notification.Builder(context, id)
+            .setContentTitle(context.getString(R.string.reminder))
+            .setContentText(context.getString(R.string.it_is_studying_time))
+            .setSmallIcon(R.drawable.spell_check_icon)
             .setAutoCancel(true)
             .setContentIntent(activityPendingIntent)
             .build()
-        notificationManager.notify(0, notification)
 
+    }
+    fun showNotification() {
+        notificationManager.notify(0, notification)
     }
 
     companion object {
@@ -31,5 +35,13 @@ class ReminderNotification(private val context: Context) {
         const val id = "reminder"
         const val name = "Spell Tester Reminder"
         const val description = "Reminder to practice spelling"
+        //edger
+        private var instance: ReminderNotification? = null
+        fun getInstance(context: Context?=null): ReminderNotification {
+            return instance ?: synchronized(this) {
+                instance ?: ReminderNotification(context!!).also { instance = it }
+            }
+        }
+
     }
 }

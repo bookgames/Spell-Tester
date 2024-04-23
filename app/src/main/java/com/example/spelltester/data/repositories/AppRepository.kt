@@ -25,13 +25,13 @@ class AppRepository(
     }
     override fun fetchRemoteData(result: (String) -> Unit){
         RemoteService.getData(DATA_FILE_NAME) {
-            val currentVersion = StorageManager.getInstance().getVersion()
+            val currentVersion = LocalStorage.getInstance().getVersion()
             val version = JSONObject(it).getInt(KEY_VERSION)
             if (version <= currentVersion){
                 result("version is up to date")
                 return@getData
             }
-            StorageManager.getInstance().saveVersion(version)
+            LocalStorage.getInstance().saveVersion(version)
             val wordsList = jsonToWords(it)
             upsertAllWords(wordsList)
             val quizzesList = jsonTOQuizzes(it)

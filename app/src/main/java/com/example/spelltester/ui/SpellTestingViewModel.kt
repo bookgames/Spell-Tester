@@ -9,7 +9,7 @@ import com.example.spelltester.data.repositories.*
 import kotlin.math.*
 import kotlin.random.*
 
-const val TAG_S_T_V_M = "SpellTestingViewModel"
+private const val TAG="KH_STVM"
 
 class SpellTestingViewModel() : ViewModel() {
     enum class Status {
@@ -51,7 +51,7 @@ class SpellTestingViewModel() : ViewModel() {
 
     private fun getNextAttempt(): Attempt? {
         // choose word in words with ratio
-        var filteredAttempts = attempts.filter { it.points != Attempt.MAX_POINT }
+        val filteredAttempts = attempts.filter { it.points != Attempt.MAX_POINT }
         if (filteredAttempts.isEmpty()) return null
         val weights = filteredAttempts.map { (it.calculateRate(it.word!!) * .5 + 4) }
         val totalWeight = weights.sum()
@@ -95,7 +95,7 @@ class SpellTestingViewModel() : ViewModel() {
                         Message.EMPTY
                     }
                     gainedPoints = answer(text)
-                    if (gainedPoints == Float.NaN) {
+                    if (gainedPoints.isNaN()) {
                         errorMessage = R.string.error_finding_word
                         status = Status.ERROR
                         Message.ERROR
@@ -119,9 +119,6 @@ class SpellTestingViewModel() : ViewModel() {
             Status.DONE, Status.ERROR -> {
                 Message.FINISH
             }
-
         }
     }
-
-
 }

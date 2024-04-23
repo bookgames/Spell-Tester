@@ -7,7 +7,7 @@ import com.example.spelltester.core.*
 import com.example.spelltester.data.db.quiz.*
 import com.example.spelltester.databinding.*
 
-private const val TAG = "QUIZ_ADAPTER"
+private const val TAG = "KH_QUIZ_ADAPTER"
 
 internal const val QUIZ_ID_KEY = "quizId"
 
@@ -40,8 +40,8 @@ class QuizAdapter(
         val binding = holder.binding
         val quiz = quizList[position]
         val progress = quiz.calculateProgress()
-        holder.itemView.context.apply   {
-        binding.cardNameTv.text = quiz.name
+        holder.itemView.context.apply {
+            binding.cardNameTv.text = quiz.name
         }
         binding.cardStart.setOnClickListener {
             val intent = Intent(it.context, SpellTestingActivity::class.java)
@@ -53,7 +53,7 @@ class QuizAdapter(
             setProgress(progress.correct)
             secondaryProgress = progress.incorrect
         }
-            val popupMenu = CardPopupMenu( binding.cardMore.rootView,position,quiz.quizId,this)
+        val popupMenu = CardPopupMenu(binding.cardMore.rootView, position, quiz.quizId, this)
         binding.cardMore.setOnClickListener {
             popupMenu.show()
         }

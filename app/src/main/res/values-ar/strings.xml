@@ -35,4 +35,12 @@
     <string name="delete_all">حذف الكل</string>
     <string name="are_you_sure_you_want_to_delete_your_progress">هل انت متأكد من أنك تريد حذف تقدمك؟</string>
     <string name="no">لا</string>
+    <string name="version">النسخة: %1$x</string>
+    <string name="answers">الاجابة %1$x</string>
+    <string name="fetch_data">تحميل البيانات</string>
+    <string name="reminder">تذكير</string>
+    <string name="it_is_studying_time">حان وقت المذاكرة</string>
+    <string name="notification_permission_needed">نحتاج اذن الاشعارات</string>
+    <string name="we_need_notification_permission_to_schedule_reminders">نحتاج الاذن لعرض الاشعارات</string>
+
 </resources>

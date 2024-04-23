@@ -7,7 +7,7 @@
     tools:context=".MainActivity">
 
     <ImageButton
-        android:id="@+id/main_setting"
+        android:id="@+id/settingBtn"
         android:layout_width="64dp"
         android:layout_height="64dp"
 
@@ -29,7 +29,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_setting"
+        app:layout_constraintTop_toBottomOf="@+id/settingBtn"
         tools:listitem="@layout/quiz_card_view" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

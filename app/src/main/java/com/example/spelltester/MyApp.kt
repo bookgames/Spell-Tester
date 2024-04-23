@@ -6,9 +6,10 @@ import android.os.*
 import com.example.spelltester.ui.*
 
 class MyApp:Application() {
+
     override fun onCreate() {
         super.onCreate()
-    createNotificationChannel()
+        createNotificationChannel()
     }
 
     private fun createNotificationChannel() {
@@ -21,4 +22,5 @@ class MyApp:Application() {
         val notificationManager: NotificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.createNotificationChannel(channel)
     }
+
 }

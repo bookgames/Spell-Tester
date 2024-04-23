@@ -2,7 +2,7 @@ package com.example.spelltester.data.storage
 
 import android.content.*
 
-class StorageManager(var context: Context) {
+class LocalStorage(var context: Context) {
     fun saveVersion(version: Int ){
         val sharedPref = context.getSharedPreferences(KEY_VERSION, Context.MODE_PRIVATE) ?: return
         with (sharedPref.edit()) {
@@ -17,16 +17,16 @@ class StorageManager(var context: Context) {
 
     companion object {
         const val KEY_VERSION = "version"
-        private var instance: StorageManager? = null
+        private var instance: LocalStorage? = null
         private val LOCK = Any()
 
         operator fun invoke(context: Context) = instance
             ?: synchronized(LOCK) {
                 instance
-                    ?: StorageManager(context).also { instance = it }
+                    ?: LocalStorage(context).also { instance = it }
             }
 
-        fun getInstance(): StorageManager {
+        fun getInstance(): LocalStorage {
             return instance!!
         }
     }

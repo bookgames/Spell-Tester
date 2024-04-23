@@ -22,11 +22,10 @@ import com.example.spelltester.databinding.*
 import com.example.spelltester.ui.*
 import org.json.*
 
-
 class MainActivity : AppCompatActivity() {
     val TAG = "KH_MAIN_ACT"
     private lateinit var binding: ActivityMainBinding
-    private val alarmTime = 1000 * 7
+    private val alarmTime = 1000 * 60 * 60 * 24 // 24 hours
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)

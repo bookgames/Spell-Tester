@@ -1,6 +1,7 @@
 package com.example.spelltester.data.remote
 
 import android.util.*
+import com.example.spelltester.data.storage.*
 import org.json.*
 import retrofit2.*
 import retrofit2.converter.gson.*
@@ -20,7 +21,8 @@ object RemoteService {
     fun getData(
         file: String, success: (String) -> Unit
     ) {
-        getData(file, success) { Log.d(TAG, "failure: $it") }
+        getData(file, success) { Log.d(TAG, "failure: $it")
+        LocalStorage.getInstance().log(log = "RemoteService.getData: $it")}
     }
 
     fun getData(file: String, success: (String) -> Unit, failure: (String) -> Unit) {

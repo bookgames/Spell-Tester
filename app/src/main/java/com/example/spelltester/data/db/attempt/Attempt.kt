@@ -15,6 +15,7 @@ data class Attempt(
 ) {
     @delegate:Transient
     val word: Word? by lazy { AppRepository.getInstance().getWordByWordId(wordId)!! }
+
     companion object {
         const val MAX_POINT = 4.0f
         const val MIN_POINT = -4.0f

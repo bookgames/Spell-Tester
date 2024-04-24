@@ -42,5 +42,6 @@
     <string name="it_is_studying_time">حان وقت المذاكرة</string>
     <string name="notification_permission_needed">نحتاج اذن الاشعارات</string>
     <string name="we_need_notification_permission_to_schedule_reminders">نحتاج الاذن لعرض الاشعارات</string>
+    <string name="export_log">تصدير بيانات الاستخدام</string>
 
 </resources>

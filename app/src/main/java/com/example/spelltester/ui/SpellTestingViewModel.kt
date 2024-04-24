@@ -6,6 +6,7 @@ import com.example.spelltester.core.*
 import com.example.spelltester.data.db.attempt.*
 import com.example.spelltester.data.db.word.*
 import com.example.spelltester.data.repositories.*
+import com.example.spelltester.data.storage.*
 import kotlin.math.*
 import kotlin.random.*
 
@@ -45,6 +46,7 @@ class SpellTestingViewModel() : ViewModel() {
             if (attempt == null) {
                 status = Status.ERROR
                 errorMessage = R.string.error_finding_word
+                LocalStorage.getInstance().logDebug( TAG,"attempt is null")
             }
         }
     }
@@ -82,12 +84,14 @@ class SpellTestingViewModel() : ViewModel() {
     }
 
     fun processClicking(text: String?): Message {
+        val ls=LocalStorage.getInstance()
         return when (status) {
             Status.ANSWERING -> {
                 if (attempt == null) {
                     status = Status.ERROR
                     errorMessage = R.string.error_finding_word
                     Message.ERROR
+                    ls.logDebug(TAG, "attempt is null")
                 }
                 attempt?.let {
                     if (text?.isBlank() != false) {
@@ -99,12 +103,12 @@ class SpellTestingViewModel() : ViewModel() {
                         errorMessage = R.string.error_finding_word
                         status = Status.ERROR
                         Message.ERROR
+                        ls.logDebug(TAG, "gainedPoints is NaN")
                     }
                     it.points = min(Attempt.MAX_POINT, it.points + gainedPoints)
                     it.points = max(Attempt.MIN_POINT, it.points)
                     it.lastAttempt = System.currentTimeMillis()
                     repository.upsert(it)
-
                 }
                 status = Status.SHOWING
                 Message.CORRECT

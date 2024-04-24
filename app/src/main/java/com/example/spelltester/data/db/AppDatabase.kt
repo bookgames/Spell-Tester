@@ -5,6 +5,7 @@ import androidx.room.*
 import com.example.spelltester.data.db.word.*
 import com.example.spelltester.data.db.attempt.*
 import com.example.spelltester.data.db.quiz.*
+import com.example.spelltester.data.storage.*
 
 const val databaseName = "SpellTestDatabase.db"
 
@@ -39,6 +40,9 @@ abstract class AppDatabase : RoomDatabase() {
             ).allowMainThreadQueries()
                 .fallbackToDestructiveMigration()
                 .createFromAsset("database/$databaseName")
-                .build()
+                .build().also {
+                    LocalStorage.getInstance().log("Database created")
+
+                }
     }
 }

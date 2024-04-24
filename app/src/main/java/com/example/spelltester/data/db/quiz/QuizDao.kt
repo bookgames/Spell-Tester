@@ -6,8 +6,10 @@ import com.example.spelltester.data.db.attempt.*
 
 @Dao
 interface QuizDao {
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun upsert(quiz: Quiz)
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun upsert(quizzes: List<Quiz>)
 

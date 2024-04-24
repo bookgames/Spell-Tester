@@ -13,7 +13,6 @@ import com.example.spelltester.ui.SpellTestingViewModel.*
 class SpellTestingActivity : AppCompatActivity() {
     lateinit var binding: ActivitySpellTestingBinding
     var quizId: Int? = null
-    private val repository = AppRepository.getInstance()
     private lateinit var viewModel: SpellTestingViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +41,7 @@ class SpellTestingActivity : AppCompatActivity() {
             Status.ANSWERING -> {
                 val attempt = viewModel.attempt!!
                 binding.txtHead.text = attempt.word?.arabicWord ?: getString(R.string.error_finding_word)
-                binding.btnNext.setText(R.string.next)
+                binding.btnNext.setText(R.string.answer)
                 //TODO: set color to default
                 binding.txtInfo.text =
                     "${getString(R.string.remain)} :${viewModel.attempts.filter { it.points != Attempt.MAX_POINT }.size}"
@@ -58,7 +57,7 @@ class SpellTestingActivity : AppCompatActivity() {
                         getString(R.string.right_answer_points) + (if (gainedPoints > 0) "+" else "") + gainedPoints
                 }
                 var attempt = viewModel.attempt!!
-                binding.btnNext.setText(R.string.answer)
+                binding.btnNext.setText(R.string.next)
                 binding.txtHead.text = attempt.word?.englishWord + "\n" + attempt.word?.arabicWord
             }
             Status.DONE -> {

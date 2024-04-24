@@ -1,16 +1,9 @@
 package com.example.spelltester
 
-import android.Manifest.permission.*
-import android.app.*
 import android.content.*
-import android.content.pm.*
 import android.os.*
-import android.util.*
-import androidx.activity.result.contract.*
 import androidx.appcompat.app.*
-import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.*
-import com.example.spelltester.data.db.*
 import com.example.spelltester.data.db.JsonConverter.DATA_FILE_NAME
 import com.example.spelltester.data.db.JsonConverter.KEY_VERSION
 import com.example.spelltester.data.db.JsonConverter.jsonTOQuizzes
@@ -20,12 +13,12 @@ import com.example.spelltester.data.repositories.*
 import com.example.spelltester.data.storage.*
 import com.example.spelltester.databinding.*
 import com.example.spelltester.ui.*
+import com.example.spelltester.ui.notification.*
 import org.json.*
 
 class MainActivity : AppCompatActivity() {
     val TAG = "KH_MAIN_ACT"
     private lateinit var binding: ActivityMainBinding
-    private val alarmTime = 1000 * 60 * 60 * 24 // 24 hours
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -34,17 +27,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initializeComponents() {
-        Log.d(TAG, "before build")
-        AppDatabase.invoke(this)
-        AppRepository.invoke(AppDatabase.getInstance())
-        ReminderNotification.getInstance(this)
-        val localStorage = LocalStorage.invoke(this)
-        Log.d(TAG, "after build")
+        val localStorage = LocalStorage.getInstance()
         val repo = AppRepository.getInstance()
+        val notification= ReminderNotification.getInstance(this)
         setupQuizList(repo)
         loadDataIfNeeded(localStorage, repo)
         setupSettingButton()
-        handleNotificationPermission()
+        notification.handleNotification()
     }
 
     private fun setupQuizList(repo: AppRepository) {
@@ -67,9 +56,9 @@ class MainActivity : AppCompatActivity() {
                 localStorage.saveVersion(version)
                 repo.upsertAllWords(jsonToWords(data))
                 repo.upsert(jsonTOQuizzes(data))
-                Log.d(TAG, "version updated")
+                localStorage.log("data loaded $currentVersion:$version", TAG)
             } else {
-                Log.d(TAG, "version is up to date")
+                localStorage.log("data already loaded", TAG)
             }
         }
     }
@@ -78,69 +67,13 @@ class MainActivity : AppCompatActivity() {
         binding.settingBtn.setOnClickListener {
             startActivity(Intent(this, SettingActivity::class.java))
         }
-    }
 
-    private fun handleNotificationPermission() {
-        if (isNotificationPermissionGranted()) {
-            scheduleNotification()
-        } else {
-            requestNotificationPermission()
-        }
-    }
-
-    private fun scheduleNotification() {
-        val pendingIntent = PendingIntent.getBroadcast(
-            this,
-            0,
-            Intent(this, NotificationReceiver::class.java),
-            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
-        )
-        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        alarmManager.setExact(
-            AlarmManager.RTC, System.currentTimeMillis() + alarmTime, pendingIntent
-        )
-    }
-
-    private fun requestNotificationPermission() {
-        val requestNotification = registerForActivityResult(
-            ActivityResultContracts.RequestPermission()
-        ) { isGranted ->
-            if (isGranted) {
-                scheduleNotification()
-            } else {
-                Log.d(TAG, "permission denied")
-            }
-        }
-
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
-            requestNotification.launch(POST_NOTIFICATIONS)
-            return
-        }
-        if (shouldShowRequestPermissionRationale(POST_NOTIFICATIONS)) {
-            AlertDialog.Builder(this).setTitle(getString(R.string.notification_permission_needed))
-                .setMessage(getString(R.string.we_need_notification_permission_to_schedule_reminders))
-                .setPositiveButton(getString(R.string.yes)) { _, _ ->
-                    requestNotification.launch(POST_NOTIFICATIONS)
-                }.setNegativeButton(getString(R.string.no)) { dialog, _ ->
-                    dialog.dismiss()
-                }.create().show()
-        } else {
-            requestNotification.launch(POST_NOTIFICATIONS)
-        }
-
-    }
-
-    private fun isNotificationPermissionGranted(): Boolean {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            checkSelfPermission(POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED
-        } else {
-            true // Permissions are not required for older versions
-        }
     }
 
     override fun onResume() {
         super.onResume()
         binding.mainRecycle.adapter?.notifyDataSetChanged()
     }
+
 
 }

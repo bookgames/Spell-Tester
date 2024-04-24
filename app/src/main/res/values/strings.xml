@@ -41,4 +41,5 @@
     <string name="it_is_studying_time">it\'s studying time</string>
     <string name="notification_permission_needed">Notification Permission Needed</string>
     <string name="we_need_notification_permission_to_schedule_reminders">We need notification permission to schedule reminders.</string>
+    <string name="export_log">export log</string>
 </resources>

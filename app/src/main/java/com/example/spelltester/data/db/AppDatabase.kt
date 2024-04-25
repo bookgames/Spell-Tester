@@ -8,10 +8,10 @@ import com.example.spelltester.data.db.quiz.*
 import com.example.spelltester.data.storage.*
 
 const val databaseName = "SpellTestDatabase.db"
-
+const val dbVersion = 10
 @Database(
     entities = [ Word::class, Attempt::class, Quiz::class],
-    version = 10,
+    version = dbVersion,
 )
 @TypeConverters(IntArrayConverter::class)
 abstract class AppDatabase : RoomDatabase() {
@@ -42,7 +42,7 @@ abstract class AppDatabase : RoomDatabase() {
                 .createFromAsset("database/$databaseName")
                 .build().also {
                     LocalStorage.getInstance().log("Database created")
-
+                        .log("Database version: $dbVersion")
                 }
     }
 }

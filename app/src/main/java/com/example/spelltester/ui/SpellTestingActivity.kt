@@ -5,15 +5,15 @@ import androidx.appcompat.app.*
 import androidx.lifecycle.*
 import com.example.spelltester.*
 import com.example.spelltester.data.db.attempt.*
-import com.example.spelltester.data.repositories.*
 import com.example.spelltester.databinding.*
 import com.example.spelltester.ui.SpellTestingViewModel.*
 
 
 class SpellTestingActivity : AppCompatActivity() {
-    lateinit var binding: ActivitySpellTestingBinding
+    private lateinit var binding: ActivitySpellTestingBinding
     var quizId: Int? = null
     private lateinit var viewModel: SpellTestingViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySpellTestingBinding.inflate(layoutInflater)
@@ -22,12 +22,9 @@ class SpellTestingActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this)[SpellTestingViewModel::class.java]
         viewModel.init(quizId!!)
         binding.btnNext.setOnClickListener {
-         when (viewModel.processClicking(binding.txtSpell.text.toString())) {
+            when (viewModel.processClicking(binding.txtSpell.text.toString())) {
                 SpellTestingViewModel.Message.FINISH -> {
                     finish()
-                }
-                SpellTestingViewModel.Message.EMPTY -> {
-                    binding.txtInfo.text = getString(R.string.please_enter_a_word)
                 }
                 else -> refreshUI()
             }
@@ -36,35 +33,43 @@ class SpellTestingActivity : AppCompatActivity() {
     }
 
     private fun refreshUI() {
-        val gainedPoints = viewModel.gainedPoints
+        val gainedPoints = viewModel.gainedPoints.toInt()
+        val currentPoints = viewModel.currentPoints.toInt()
         when (viewModel.status) {
             Status.ANSWERING -> {
                 val attempt = viewModel.attempt!!
-                binding.txtHead.text = attempt.word?.arabicWord ?: getString(R.string.error_finding_word)
+                binding.txtHead.text =
+                    attempt.word?.arabicWord ?: getString(R.string.error_finding_word)
                 binding.btnNext.setText(R.string.answer)
                 //TODO: set color to default
-                binding.txtInfo.text =
-                    "${getString(R.string.remain)} :${viewModel.attempts.filter { it.points != Attempt.MAX_POINT }.size}"
+                binding.remainsTv.text =
+                    "${getString(R.string.remaining)} :${viewModel.attempts.filter { it.points != Attempt.MAX_POINT }.size}"
+                binding.pointsTv.text = "pts $currentPoints"
+                binding.pointsTv.background.setTint(getColor(R.color.mid))
             }
+
             Status.SHOWING -> {
-                if (gainedPoints != 2f) {
-                    binding.txtInfo.setTextColor(getColor(R.color.red))
-                    binding.txtInfo.text =
-                        getString(R.string.wrong_answer_points) + (if (gainedPoints > 0) "+" else "") + gainedPoints
-                } else {
-                    binding.txtInfo.setTextColor(getColor(R.color.green))
-                    binding.txtInfo.text =
-                        getString(R.string.right_answer_points) + (if (gainedPoints > 0) "+" else "") + gainedPoints
+
+                binding.pointsTv.text =
+                    "pts $currentPoints :" + (if (gainedPoints > 0) "+" else "") + gainedPoints
+                when {
+                    gainedPoints > 2 -> binding.pointsTv.background.setTint(getColor(R.color.very_good))
+                    gainedPoints > 0 -> binding.pointsTv.background.setTint(getColor(R.color.good))
+                    gainedPoints == 0 -> binding.pointsTv.background.setTint(getColor(R.color.mid))
+                    gainedPoints > -2 -> binding.pointsTv.background.setTint(getColor(R.color.bad))
+                    else -> binding.pointsTv.background.setTint(getColor(R.color.very_bad))
                 }
                 var attempt = viewModel.attempt!!
                 binding.btnNext.setText(R.string.next)
                 binding.txtHead.text = attempt.word?.englishWord + "\n" + attempt.word?.arabicWord
             }
+
             Status.DONE -> {
-                binding.txtInfo.text = ""
+                binding.remainsTv.text=getText(R.string.done)
                 binding.txtHead.text = getString(R.string.congratulation)
                 binding.btnNext.setText(R.string.done)
             }
+
             Status.ERROR -> {
                 binding.txtHead.text = getString(viewModel.errorMessage)
                 binding.btnNext.setText(R.string.done)

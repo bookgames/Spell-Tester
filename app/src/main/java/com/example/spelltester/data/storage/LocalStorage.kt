@@ -22,6 +22,7 @@ class LocalStorage(var context: Context) {
                             Settings.Secure.getString(context.contentResolver
                                 ,Settings.Secure.ANDROID_ID)}\n"
                     )
+                    .append("Device Model : ${Build.MODEL}\n")
                 it.write((str.toString()).toByteArray())
             }
         }
@@ -55,10 +56,12 @@ class LocalStorage(var context: Context) {
     fun exportLog(activity: Activity) {
         val file = File(context.filesDir, LOG_FILE_NAME)
         val uri = FileProvider.getUriForFile(context, "com.example.spelltester.fileprovider", file)
-        val intent = Intent(Intent.ACTION_SEND)
-        intent.type = "text/plain"
-        intent.putExtra(Intent.EXTRA_STREAM, uri)
-        activity.startActivity(Intent.createChooser(intent, "Share log file"))
+        val intent = Intent(Intent.ACTION_SEND).apply {
+            type = "file/*"
+            putExtra(Intent.EXTRA_STREAM, uri)
+            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION) // Grant read permission to the receiving app
+        }
+        activity.startActivity(Intent.createChooser(intent, "export log file"))
     }
 
 

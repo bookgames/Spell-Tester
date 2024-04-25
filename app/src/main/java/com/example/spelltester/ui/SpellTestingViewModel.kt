@@ -12,7 +12,7 @@ import kotlin.random.*
 
 private const val TAG="KH_STVM"
 
-class SpellTestingViewModel() : ViewModel() {
+class SpellTestingViewModel : ViewModel() {
     enum class Status {
         ANSWERING, SHOWING, DONE, ERROR
     }
@@ -27,6 +27,7 @@ class SpellTestingViewModel() : ViewModel() {
     var status: Status = Status.ANSWERING
     var errorMessage: Int = 0
     var quizId: Int = -2
+    val currentPoints get() = attempt?.points ?: 0f
 
     private val repository=AppRepository.getInstance()
     fun init( quizId: Int) {
@@ -34,6 +35,7 @@ class SpellTestingViewModel() : ViewModel() {
         if (quizId == -1) {
             status = Status.ERROR
             errorMessage = R.string.error_finding_quiz
+
         } else {
             val words = repository.getWordsByWordsId(
                 repository.getQuizByQuizId(quizId)?.wordsId ?: IntArray(0)
@@ -44,9 +46,8 @@ class SpellTestingViewModel() : ViewModel() {
             attempts = repository.getAttemptsByQuizId(quizId)
             attempt = getNextAttempt()
             if (attempt == null) {
-                status = Status.ERROR
-                errorMessage = R.string.error_finding_word
-                LocalStorage.getInstance().logDebug( TAG,"attempt is null")
+                status = Status.DONE
+                LocalStorage.getInstance().logDebug(TAG, "user finished the quiz $quizId")
             }
         }
     }

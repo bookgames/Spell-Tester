@@ -2,7 +2,6 @@ package com.example.spelltester
 
 import android.app.*
 import android.content.*
-import android.os.*
 import com.example.spelltester.data.db.*
 import com.example.spelltester.data.repositories.*
 import com.example.spelltester.data.storage.*
@@ -12,7 +11,7 @@ class MyApp:Application() {
 private val TAG = "KH_MY_APP"
     override fun onCreate() {
         super.onCreate()
-        LocalStorage.invoke(this).logDebug(log = "App started")
+        LocalStorage.invoke(this).logDebug("App started")
         AppDatabase.invoke(this)
         AppRepository.invoke(AppDatabase.getInstance())
 

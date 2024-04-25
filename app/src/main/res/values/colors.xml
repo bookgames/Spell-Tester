@@ -9,12 +9,19 @@
     <color name="purple_700">#3700B3</color>
     <color name="teal_200">#03DAC5</color>
     <color name="teal_700">#018786</color>
-    <color name="red">#FFB00020</color>
+    <color name="red">#B00020</color>
     <color name="green">#27ae60</color>
     <color name="amethyst">#9b59b6</color>
     <color name="wisteria">#8e44ad</color>
     <color name="silver">#bdc3c7</color>
     <color name="midnight_blue">#2c3e50</color>
+
+    <color name="very_bad">#e51f1f</color>
+    <color name="bad">#f2a134</color>
+    <color name="mid">@color/silver</color>
+    <color name="good">	#bbdb44</color>
+    <color name="very_good">#44ce1b</color>
+
     <!-- Stacked Horizontal Progressbar Colors -->
     <color name="shpbr_primary_progress">@color/green</color>
     <color name="shpbr_secondary_progress">#FF3422</color>

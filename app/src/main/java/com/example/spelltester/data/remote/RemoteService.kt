@@ -22,7 +22,7 @@ object RemoteService {
         file: String, success: (String) -> Unit
     ) {
         getData(file, success) { Log.d(TAG, "failure: $it")
-        LocalStorage.getInstance().log(log = "RemoteService.getData: $it")}
+        LocalStorage.getInstance().log("RemoteService.getData: $it")}
     }
 
     fun getData(file: String, success: (String) -> Unit, failure: (String) -> Unit) {

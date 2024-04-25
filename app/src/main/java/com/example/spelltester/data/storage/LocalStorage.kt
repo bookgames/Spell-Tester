@@ -62,14 +62,6 @@ class LocalStorage(var context: Context) {
     }
 
 
-    fun printLog() {
-        context.openFileInput(LOG_FILE_NAME).bufferedReader().useLines { lines ->
-            lines.forEach {
-                Log.d(TAG, it)
-            }
-        }
-    }
-
     companion object {
         const val KEY_VERSION = "version"
         const val LOG_FILE_NAME = "log.txt"
@@ -87,4 +79,6 @@ class LocalStorage(var context: Context) {
             return instance!!
         }
     }
+
+
 }

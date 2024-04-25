@@ -20,7 +20,6 @@ private val TAG = "KH_MY_APP"
     }
 
     private fun createNotificationChannel() {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) return
         val channel = NotificationChannel(
             ReminderNotification.id,
             ReminderNotification.name,

@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "47886036234",
-    "project_id": "spelltester-9ba15",
-    "storage_bucket": "spelltester-9ba15.appspot.com"
+    "project_number": "1035036727545",
+    "project_id": "fir-storage-fb645",
+    "storage_bucket": "fir-storage-fb645.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:47886036234:android:f75ab67801b1588c13def3",
+        "mobilesdk_app_id": "1:1035036727545:android:aab9e6ff5d06d4dcd16a28",
         "android_client_info": {
           "package_name": "com.example.spelltester"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyB1PP7_A3Xoe53Hzfbsq7vTl5rhNplcuJ8"
+          "current_key": "AIzaSyBNExObslqEYeJBIhuQAD7Nagke68RFeJY"
         }
       ],
       "services": {

@@ -2,6 +2,7 @@ package com.example.spelltester
 
 import android.content.*
 import android.os.*
+import android.util.*
 import androidx.appcompat.app.*
 import androidx.recyclerview.widget.*
 import com.example.spelltester.data.db.JsonConverter.DATA_FILE_NAME
@@ -14,6 +15,7 @@ import com.example.spelltester.data.storage.*
 import com.example.spelltester.databinding.*
 import com.example.spelltester.ui.*
 import com.example.spelltester.ui.notification.*
+import com.google.firebase.storage.*
 import org.json.*
 
 class MainActivity : AppCompatActivity() {
@@ -22,14 +24,30 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
+        uploadLogToFirebase()
         setContentView(binding.root)
         initializeComponents()
+    }
+
+    private fun uploadLogToFirebase() {
+        val storage = FirebaseStorage.getInstance().reference
+        val ls = LocalStorage.getInstance()
+        if (System.currentTimeMillis() - ls.getLastUpload() < (24 * 60 * 60 * 1000)) {
+            storage.child("logs/${ls.deviceId}/log.txt")
+                .putBytes(ls.getLog().toByteArray()).addOnSuccessListener {
+                    ls.updateLastUpload()
+                    ls.logDebug("Uploaded to fire base successfully")
+                }.addOnFailureListener {
+                    Log.d(TAG, "failed to upload to firebase:${it.message}")
+                    it.printStackTrace()
+                }
+        }
     }
 
     private fun initializeComponents() {
         val localStorage = LocalStorage.getInstance()
         val repo = AppRepository.getInstance()
-        val notification= ReminderNotification.getInstance(this)
+        val notification = ReminderNotification.getInstance(this)
         setupQuizList(repo)
         loadDataIfNeeded(localStorage, repo)
         setupSettingButton()

@@ -18,11 +18,13 @@ class AppRepository(
     private val db: AppDatabase
 ) : Repository {
     private val TAG = "KH_APP_REPO"
+
     fun fetchRemoteData(){
         fetchRemoteData {
             Log.d(TAG, it)
         }
     }
+
     override fun fetchRemoteData(result: (String) -> Unit){
         RemoteService.getData(DATA_FILE_NAME) {
             val currentVersion = LocalStorage.getInstance().getVersion()

@@ -3,15 +3,15 @@ package com.example.spelltester.data.repositories
 import android.util.*
 import com.example.spelltester.data.db.*
 import com.example.spelltester.data.db.JsonConverter.DATA_FILE_NAME
+import com.example.spelltester.data.db.JsonConverter.KEY_VERSION
+import com.example.spelltester.data.db.JsonConverter.jsonTOQuizzes
+import com.example.spelltester.data.db.JsonConverter.jsonToWords
 import com.example.spelltester.data.db.attempt.*
 import com.example.spelltester.data.db.quiz.*
 import com.example.spelltester.data.db.word.*
 import com.example.spelltester.data.remote.*
 import com.example.spelltester.data.storage.*
-import com.example.spelltester.data.db.JsonConverter.KEY_VERSION
-import com.example.spelltester.data.db.JsonConverter.jsonTOQuizzes
-import com.example.spelltester.data.db.JsonConverter.jsonToWords
-import org.json.JSONObject
+import org.json.*
 
 
 class AppRepository(
@@ -19,17 +19,26 @@ class AppRepository(
 ) : Repository {
     private val TAG = "KH_APP_REPO"
 
-    fun fetchRemoteData(){
+    fun fetchRemoteData() {
         fetchRemoteData {
             Log.d(TAG, it)
         }
     }
 
-    override fun fetchRemoteData(result: (String) -> Unit){
+    override fun upload2Firebase(
+        text: String,
+        path: String,
+        success: (String) -> Unit,
+        failure: (String) -> Unit
+    ) {
+        RemoteService.upload2Firebase(text, path, {success(it) }, { failure(it) })
+    }
+
+    override fun fetchRemoteData(result: (String) -> Unit) {
         RemoteService.getData(DATA_FILE_NAME) {
             val currentVersion = LocalStorage.getInstance().getVersion()
             val version = JSONObject(it).getInt(KEY_VERSION)
-            if (version <= currentVersion){
+            if (version <= currentVersion) {
                 result("version is up to date")
                 return@getData
             }
@@ -59,7 +68,7 @@ class AppRepository(
 
     //attempts
     override fun getAttemptsByQuizId(quizId: Int) = db.quizDao().getAttemptsByQuizId(quizId)
-    override fun  getAllAttempt() = db.attemptDao().getAttempt()
+    override fun getAllAttempt() = db.attemptDao().getAttempt()
     override fun upsert(attempt: Attempt) = db.attemptDao().upsert(attempt)
     override fun deleteAttempt(attempt: Attempt) = db.attemptDao().deleteAttempt(attempt)
     override fun getAttemptByWordId(wordId: Int) =

@@ -64,7 +64,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="150dp">
+                android:layout_height="225dp">
 
                 <Button
                     android:id="@+id/deleteAllBtn"
@@ -93,10 +93,20 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
-                    android:text="@string/export_log"
+                    android:text="@string/export_log_as_file"
                     app:icon="@drawable/baseline_eject_24"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <Button
+                    android:id="@+id/uploadLogBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/upload_log"
+                    app:icon="@drawable/file_upload_24"
+                    app:layout_constraintEnd_toEndOf="@+id/exportLogBtn"
+                    app:layout_constraintTop_toBottomOf="@+id/exportLogBtn" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>

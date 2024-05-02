@@ -2,14 +2,15 @@ package com.example.spelltester.data.remote
 
 import android.util.*
 import com.example.spelltester.data.storage.*
+import com.google.firebase.storage.*
 import org.json.*
 import retrofit2.*
 import retrofit2.converter.gson.*
 
 object RemoteService {
-    private  val BASE_URL = "https://api.github.com/"
-    private  val RELATIVE_URL = "repos/KhaledHawwas/Spell-Tester/contents/"
-    private  val TAG = "Kh_RE"
+    private val BASE_URL = "https://api.github.com/"
+    private val RELATIVE_URL = "repos/KhaledHawwas/Spell-Tester/contents/"
+    private val TAG = "Kh_RE"
     val instance: GitHubService by lazy {
         val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
@@ -21,8 +22,10 @@ object RemoteService {
     fun getData(
         file: String, success: (String) -> Unit
     ) {
-        getData(file, success) { Log.d(TAG, "failure: $it")
-        LocalStorage.getInstance().log("RemoteService.getData: $it")}
+        getData(file, success) {
+            Log.d(TAG, "failure: $it")
+            LocalStorage.getInstance().log("RemoteService.getData: $it")
+        }
     }
 
     fun getData(file: String, success: (String) -> Unit, failure: (String) -> Unit) {
@@ -45,11 +48,30 @@ object RemoteService {
                         failure("fileData is null")
                     }
                 }
+
                 override fun onFailure(call: Call<okhttp3.ResponseBody>, t: Throwable) {
                     Log.d(TAG, t.message ?: "Unknown error")
                     failure(t.message ?: "Unknown error")
                 }
             })
+    }
+
+    fun upload2Firebase(
+        text: String,
+        path: String,
+        success: (String) -> Unit,
+        failure: (String) -> Unit
+    ) {
+        val storage = FirebaseStorage.getInstance().reference
+        storage.child(path)
+            .putBytes(text.toByteArray()).addOnSuccessListener {
+                success("upload success")
+            }.addOnFailureListener {
+                it.printStackTrace()
+                failure(it.message ?: "Unknown error")
+            }
+
+
     }
 
 }

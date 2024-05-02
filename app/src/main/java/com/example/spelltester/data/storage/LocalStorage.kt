@@ -99,7 +99,7 @@ class LocalStorage(var context: Context) {
             putExtra(Intent.EXTRA_STREAM, uri)
             addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION) // Grant read permission to the receiving app
         }
-        activity.startActivity(Intent.createChooser(intent, activity.getText(R.string.export_log)))
+        activity.startActivity(Intent.createChooser(intent, activity.getText(R.string.export_log_as_file)))
     }
 
     fun getNotifyPermission():NotifyPermission {

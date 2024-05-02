@@ -14,8 +14,7 @@ android {
         minSdk = 26
         targetSdk = 33
         versionCode = 1
-        versionName = "1.0"
-
+        versionName = "0.1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -52,31 +51,31 @@ buildscript {
 }
 dependencies {
 
-    implementation("androidx.core:core-ktx:1.9.0")
+    implementation("androidx.core:core-ktx:1.13.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.10.0")
+    implementation("com.google.android.material:material:1.11.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    implementation("org.chromium.net:cronet-embedded:119.6045.31")
+    //implementation("org.chromium.net:cronet-embedded:119.6045.31")
     // Room and Architectural Components
-    val roomVersion="2.4.2"
+    val roomVersion= "2.6.1"
     implementation("androidx.room:room-runtime:$roomVersion")
     implementation ("androidx.legacy:legacy-support-v4:1.0.0")
-    implementation ("androidx.lifecycle:lifecycle-extensions:2.2.0")
+    //implementation ("androidx.lifecycle:lifecycle-extensions:2.2.0")
     implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
-    implementation ("androidx.room:room-ktx:2.2.1")
+    implementation ("androidx.room:room-ktx:2.6.1")
     kapt ("androidx.room:room-compiler:$roomVersion")
 
     // Coroutines
-    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.0")
-    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.0")
+    //implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.0")
+    //implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.0")
 
     //stack bar
     implementation ("com.github.nisrulz:stackedhorizontalprogressbar:1.0.3")
 
     // for adding recyclerview
-    implementation("androidx.recyclerview:recyclerview:1.2.0")
+    implementation("androidx.recyclerview:recyclerview:1.3.2")
     //Gson
-    implementation("com.google.code.gson:gson:2.8.8")
+    implementation("com.google.code.gson:gson:2.10.1")
     // for adding cardview
     implementation("androidx.cardview:cardview:1.0.0")
     testImplementation("junit:junit:4.13.2")
@@ -84,19 +83,19 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
     //Dagger - Hilt
-    implementation("com.google.dagger:hilt-android:2.38.1")
-    kapt("com.google.dagger:hilt-compiler:2.38.1")
+    //implementation("com.google.dagger:hilt-android:2.38.1")
+    //kapt("com.google.dagger:hilt-compiler:2.38.1")
 
     // firebase
-    implementation("com.google.firebase:firebase-analytics")
-    implementation(platform("com.google.firebase:firebase-bom:32.7.2"))
-    implementation("com.google.firebase:firebase-firestore-ktx:24.10.2")
-    implementation("com.google.firebase:firebase-sessions:1.2.4")
-    implementation("com.google.firebase:firebase-storage:20.3.0")
+   // implementation("com.google.firebase:firebase-analytics")
+    implementation(platform("com.google.firebase:firebase-bom:32.8.1"))
+    implementation("com.google.firebase:firebase-firestore-ktx:24.11.1")
+    //implementation("com.google.firebase:firebase-sessions:1.2.4")
+    //implementation("com.google.firebase:firebase-storage:20.3.0")
     implementation("com.google.firebase:firebase-storage-ktx:20.3.0")
 
     // Retrofit
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-    implementation("com.squareup.okhttp3:logging-interceptor:4.9.1")
+    implementation("com.squareup.retrofit2:retrofit:2.11.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.11.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
 }

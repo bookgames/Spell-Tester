@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.*
 
 interface Repository {
     fun fetchRemoteData(success: (String) -> Unit)
+    fun upload2Firebase(text: String,path:String, success: (String) -> Unit, failure: (String) -> Unit)
     //words
     fun getWordByWordId(wordId: Int): Word?
     fun deleteWord(word: Word)
